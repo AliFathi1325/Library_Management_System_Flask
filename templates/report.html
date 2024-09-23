@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if message == 'Enter the book information!' %}
+
+<div class="alert alert-dismissible alert-warning">
+    <h4 class="alert-heading">Warning!</h4>
+    <p class="mb-0">{{message}} <a href="/add" class="alert-link">Go to the add book page</a>.</p>
+
+</div>
+
+{% elif message == 'This book is not available in the library.' %}
+
+<div class="alert alert-dismissible alert-warning">
+    <h4 class="alert-heading">Warning!</h4>
+    <p class="mb-0">{{message}} <a href="/borrow" class="alert-link">Go to the book borrowing page</a>.</p>
+</div>
+
+{% elif message == "Enter the borrower's information" %}
+
+<div class="alert alert-dismissible alert-warning">
+    <h4 class="alert-heading">Warning!</h4>
+    <p class="mb-0">{{message}} <a href="/borrow" class="alert-link">Go to the book borrowing page</a>.</p>
+</div>
+
+{% else %}
+
+<div class="alert alert-dismissible alert-success">
+    <h4 class="alert-heading">Well done!</h4>
+    <p class="mb-0">{{message}}</p>
+
+</div>{% endif %}
+
+{% endblock content %}

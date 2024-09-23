@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content1 %}
+<ul class="list-group">
+    <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center">
+        <h5>Books loaned to individuals</h5>
+    </li>
+    {% if message == "No books are available at the moment." %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{message}} </li>
+    {% else %}
+    {% for item in message %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{item}}
+    </li>
+    {% endfor %}
+    {% endif %}
+</ul>
+{% endblock content1 %}
+
+{% block content %}
+<div class="card border-primary mb-3">
+    <div class="card-header">Lending books</div>
+    <div class="card-body">
+        {% if message == "No books are available at the moment." %}
+        <h3>There is no book available in the library for lending</h3>
+        {% else %}
+        <form action="/submit_borrow" method="POST">
+            <div>
+                <fieldset>
+                    <label class="form-label mt-1" for="readOnlyInput">The title of the book:</label>
+                    <select class="form-select" id="bookSelect" name="title">
+                        <option value="">Select a book</option>
+                        {% for book in message %}
+                        {% set title = book.split(" by")[0].strip() %}
+                        <option value="{{ title }}">{{ title }}</option>
+                        {% endfor %}
+                    </select>
+                </fieldset>
+            </div>
+            <div>
+                <fieldset>
+                    <label class="form-label mt-2" for="readOnlyInput">The name of the borrower of the book:</label>
+                    <input class="form-control" id="readOnlyInput" type="text" name="borrower">
+                </fieldset>
+            </div>
+            <div>
+                <fieldset>
+                    <button type="submit" class="btn btn-primary mt-4">Lending books</button>
+                </fieldset>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

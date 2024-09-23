@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content1 %}
+<ul class="list-group">
+    <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center">
+        <h5>Books ready to lend</h5>
+    </li>
+    {% if available == "No books are available at the moment." %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{available}} </li>
+    {% else %}
+    {% for item in available %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{item}} </li>
+    {% endfor %}
+    {% endif %}
+</ul>
+{% endblock content1 %}
+
+{% block content %}
+<ul class="list-group">
+    <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center">
+        <h5>Books loaned to individuals</h5>
+    </li>
+    {% if borrowed == "No books are currently borrowed." %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{borrowed}} </li>
+    {% else %}
+    {% for item in borrowed %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{item}}
+        <form action="{{ url_for('return_book') }}" method="POST">
+            <input type="hidden" name="book_title" value="{{ item }}">
+            <button type="submit" class="btn btn-primary">return book</button>
+        </form>
+    </li>
+    {% endfor %}
+    {% endif %}
+</ul>
+{% endblock content %}
